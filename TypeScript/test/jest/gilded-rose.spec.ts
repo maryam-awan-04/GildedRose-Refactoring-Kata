@@ -3,9 +3,9 @@ import { Item, GildedRose } from '@/gilded-rose';
 describe('Gilded Rose', () => {
   describe('Regular item', () => {
     it('should degrade in quality by one before its sell by date', () => {
-      const gildedRose = new GildedRose([new Item('foo', 100, 50)]);
+      const gildedRose = new GildedRose([new Item('foo', 100, 40)]);
       const items = gildedRose.updateQuality();
-      expect(items[0].quality).toBe(49);
+      expect(items[0].quality).toBe(39);
     });
 
     it('should degrade in quality by two after its sell by date', () => {
@@ -18,6 +18,12 @@ describe('Gilded Rose', () => {
       const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(0);
+    });
+
+    it('the quality cannot exceed 50', () => {
+      const gildedRose = new GildedRose([new Item('foo', 50, 50)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(50);
     });
   });
 
