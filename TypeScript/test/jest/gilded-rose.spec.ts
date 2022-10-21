@@ -27,6 +27,32 @@ describe('Gilded Rose', () => {
     });
   });
 
+  describe('Conjured Item', () => {
+    it('should degrade in quality by two before its sell by date', () => {
+      const gildedRose = new GildedRose([new Item('Conjured Item', 100, 40)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(38);
+    });
+
+    it('should degrade in quality by four after its sell by date', () => {
+      const gildedRose = new GildedRose([new Item('Conjured Item', 0, 40)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(36);
+    });
+
+    it('the quality cannot be negative', () => {
+      const gildedRose = new GildedRose([new Item('Conjured Item', 0, 0)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(0);
+    });
+
+    it('the quality cannot exceed 50', () => {
+      const gildedRose = new GildedRose([new Item('Conjured Item', 50, 50)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(50);
+    });
+  });
+
   describe('Sulfuras, Hand of Ragnaros', () => {
     it('should not degrade in quality before sell by date', () => {
       const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 100, 80)]);
