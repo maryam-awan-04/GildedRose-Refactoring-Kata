@@ -24,7 +24,7 @@ export class GildedRose {
           continue;
         case ('Aged Brie'):
           if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1
+            this.items[i].quality += 1
           }
           else {
             continue
@@ -33,10 +33,10 @@ export class GildedRose {
         case ('Backstage passes to a TAFKAL80ETC concert'):
           if (this.items[i].quality < 50) {
             if (this.items[i].sellIn > 5 && this.items[i].sellIn < 11) {
-              this.items[i].quality = this.items[i].quality + 2
+              this.items[i].quality += 2
             }
             else if (this.items[i].sellIn > 0 && this.items[i].sellIn < 6) {
-              this.items[i].quality = this.items[i].quality + 3
+              this.items[i].quality += 3
             }
             else if (this.items[i].sellIn === 0) {
               this.items[i].quality = 0
@@ -44,6 +44,19 @@ export class GildedRose {
           }
           else {
             continue
+          }
+          continue
+        case 'Conjured Item':
+          if (this.items[i].quality === 0 || this.items[i].quality >= 50) {
+            continue
+          }
+          else {
+            if (this.items[i].sellIn >= 1) {
+              this.items[i].quality = this.items[i].quality - 2
+            }
+            else if (this.items[i].sellIn <= 0) {
+              this.items[i].quality = this.items[i].quality - 4
+            }
           }
           continue
         default:
